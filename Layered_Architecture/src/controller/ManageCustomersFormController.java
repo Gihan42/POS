@@ -42,6 +42,8 @@ public class ManageCustomersFormController {
     public TableView<CustomerTM> tblCustomers;
     public JFXButton btnAddNewCustomer;
 
+    //property dipendancy injection
+    CustomerDao customerDao=new CustomerDAOImpl();
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
         tblCustomers.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -78,8 +80,8 @@ public class ManageCustomersFormController {
          //   ArrayList<CustomerDTO> allcustomer=customerDAO.getAllCustomer();
 
            // Loos Coupling
-            CustomerDao customerDAO=new CustomerDAOImpl();
-            ArrayList<CustomerDTO> allcustomer=customerDAO.getAllCustomer();
+           // CustomerDao customerDao=new CustomerDAOImpl();
+            ArrayList<CustomerDTO> allcustomer=customerDao.getAllCustomer();
             for (CustomerDTO customer:allcustomer) {
                 tblCustomers.getItems().add(new CustomerTM(customer.getId(),customer.getName(),customer.getAddress()));
             }
@@ -155,7 +157,7 @@ public class ManageCustomersFormController {
                // customerDAO.saveCustomer(new CustomerDTO(id,name,address));//thight coupling
 
                 //loos coupling
-                CustomerDao customerDao=new CustomerDAOImpl();
+              //  CustomerDao customerDao=new CustomerDAOImpl();
                 customerDao.saveCustomer(new CustomerDTO(id,name,address));
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
@@ -177,7 +179,7 @@ public class ManageCustomersFormController {
             //   customerDAO.updateCustomer( new CustomerDTO(id,name,address));
 
                 //Loos Coupling
-               CustomerDao customerDao=new CustomerDAOImpl();
+             //  CustomerDao customerDao=new CustomerDAOImpl();
                 customerDao.updateCustomer( new CustomerDTO(id,name,address));
 
             } catch (SQLException e) {
@@ -202,8 +204,8 @@ public class ManageCustomersFormController {
       //  return   customerDAO.existCustomer(id);
 
       //  loos coupling
-        CustomerDao customerDAO = new CustomerDAOImpl();
-          return   customerDAO.existCustomer(id);
+       // CustomerDao customerDAO = new CustomerDAOImpl();
+          return   customerDao.existCustomer(id);
     }
 
 
@@ -219,7 +221,6 @@ public class ManageCustomersFormController {
            // customerDAO.deleteCustomer(id);
 
             //loos coupling
-            CustomerDao customerDao=new CustomerDAOImpl();
             customerDao.deleteCustomer(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
@@ -238,7 +239,9 @@ public class ManageCustomersFormController {
             //thight coupling
            // CustomerDAOImpl customerDAO = new CustomerDAOImpl();
            // return customerDAO.genarateId();
-            CustomerDao customerDao=new CustomerDAOImpl();
+
+            //loos coupling
+            //CustomerDao customerDao=new CustomerDAOImpl();
             return customerDao.genarateId();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
