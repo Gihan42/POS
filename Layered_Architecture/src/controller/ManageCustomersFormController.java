@@ -43,7 +43,7 @@ public class ManageCustomersFormController {
     public JFXButton btnAddNewCustomer;
 
     //property dipendancy injection
-    CustomerDao customerDao=new CustomerDAOImpl();
+    final CustomerDao customerDao=new CustomerDAOImpl();
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
         tblCustomers.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -181,7 +181,7 @@ public class ManageCustomersFormController {
                 //Loos Coupling
              //  CustomerDao customerDao=new CustomerDAOImpl();
                 customerDao.updateCustomer( new CustomerDTO(id,name,address));
-
+                new Alert(Alert.AlertType.INFORMATION,"Updated").show();
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Failed to update the customer " + id + e.getMessage()).show();
             } catch (ClassNotFoundException e) {
