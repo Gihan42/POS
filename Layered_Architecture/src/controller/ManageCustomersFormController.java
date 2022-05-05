@@ -3,8 +3,7 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import dao.CustomerDAOImpl;
-import dao.CustomerDao;
-import db.DBConnection;
+import dao.CrudDao;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,7 +42,7 @@ public class ManageCustomersFormController {
     public JFXButton btnAddNewCustomer;
 
     //property dipendancy injection
-    final CustomerDao customerDao=new CustomerDAOImpl();
+    final CrudDao customerDao=new CustomerDAOImpl();
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
         tblCustomers.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -81,7 +80,7 @@ public class ManageCustomersFormController {
 
            // Loos Coupling
            // CustomerDao customerDao=new CustomerDAOImpl();
-            ArrayList<CustomerDTO> allcustomer=customerDao.getAllCustomer();
+            ArrayList<CustomerDTO> allcustomer=customerDao.getAll();
             for (CustomerDTO customer:allcustomer) {
                 tblCustomers.getItems().add(new CustomerTM(customer.getId(),customer.getName(),customer.getAddress()));
             }
@@ -158,7 +157,8 @@ public class ManageCustomersFormController {
 
                 //loos coupling
               //  CustomerDao customerDao=new CustomerDAOImpl();
-                customerDao.saveCustomer(new CustomerDTO(id,name,address));
+                customerDao.save(new CustomerDTO(id, name, address) {
+                });
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
             } catch (SQLException e) {
@@ -180,7 +180,7 @@ public class ManageCustomersFormController {
 
                 //Loos Coupling
              //  CustomerDao customerDao=new CustomerDAOImpl();
-                customerDao.updateCustomer( new CustomerDTO(id,name,address));
+                customerDao.update( new CustomerDTO(id,name,address));
                 new Alert(Alert.AlertType.INFORMATION,"Updated").show();
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Failed to update the customer " + id + e.getMessage()).show();
@@ -205,7 +205,7 @@ public class ManageCustomersFormController {
 
       //  loos coupling
        // CustomerDao customerDAO = new CustomerDAOImpl();
-          return   customerDao.existCustomer(id);
+          return   customerDao.exist(id);
     }
 
 
@@ -221,7 +221,7 @@ public class ManageCustomersFormController {
            // customerDAO.deleteCustomer(id);
 
             //loos coupling
-            customerDao.deleteCustomer(id);
+            customerDao.delete(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
             tblCustomers.getSelectionModel().clearSelection();

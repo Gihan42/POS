@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ItemDAOImpl implements ItemDao {
-    public ArrayList<ItemDTO> getAllItems() throws SQLException, ClassNotFoundException {
+public class ItemDAOImpl implements CrudDao<ItemDTO,String> {
+   public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
      //   Connection connection = DBConnection.getDbConnection().getConnection();
     //    Statement stm = connection.createStatement();
         ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Item");
@@ -24,7 +24,7 @@ public class ItemDAOImpl implements ItemDao {
         }
         return allItems;
     }
-    public boolean saveItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean save(ItemDTO dto) throws SQLException, ClassNotFoundException {
       //  Connection connection = DBConnection.getDbConnection().getConnection();
       //  PreparedStatement pstm = connection.prepareStatement("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)");
        /* pstm.setString(1, dto.getCode());
@@ -35,7 +35,7 @@ public class ItemDAOImpl implements ItemDao {
            return SQLUtil.executeUpdate("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)",
                    dto.getCode(), dto.getDescription(),dto.getUnitPrice(),dto.getQtyOnHand());
      }
-    public boolean deleteitem(String code) throws SQLException, ClassNotFoundException {
+    public boolean delete(String code) throws SQLException, ClassNotFoundException {
      //   Connection connection = DBConnection.getDbConnection().getConnection();
       //  PreparedStatement pstm = connection.prepareStatement("DELETE FROM Item WHERE code=?");
      /*   pstm.setString(1, code);
@@ -43,7 +43,7 @@ public class ItemDAOImpl implements ItemDao {
       */
        return SQLUtil.executeUpdate("DELETE FROM Item WHERE code=?",code);
     }
-    public boolean updateItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean update(ItemDTO dto) throws SQLException, ClassNotFoundException {
       //  Connection connection = DBConnection.getDbConnection().getConnection();
       //  PreparedStatement pstm = connection.prepareStatement("");
        /* pstm.setString(1, dto.getDescription());
@@ -54,7 +54,7 @@ public class ItemDAOImpl implements ItemDao {
       return  SQLUtil.executeUpdate("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?",
                 dto.getDescription(),dto.getUnitPrice(),dto.getQtyOnHand(),dto.getCode());
     }
-    public boolean exixtsItem(String code) throws SQLException, ClassNotFoundException {
+    public boolean exist(String code) throws SQLException, ClassNotFoundException {
       //  Connection connection = DBConnection.getDbConnection().getConnection();
       //  PreparedStatement pstm = connection.prepareStatement("SELECT code FROM Item WHERE code=?");
        /* pstm.setString(1, code);
