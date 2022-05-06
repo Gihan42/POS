@@ -53,6 +53,18 @@ public class CustomerDAOImpl implements CrudDao<CustomerDTO,String> {
         return pstm.executeUpdate()>0;*/
       return  SQLUtil.executeUpdate("DELETE FROM Customer WHERE id=?",id);
     }
+
+    @Override
+    public CustomerDTO search(String id) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Customer WHERE id=?",id);
+        if(rst.next()){
+           return new CustomerDTO(rst.getString(1),
+                    rst.getString(2),
+                    rst.getString(3));
+        }
+        return null;
+    }
+
     public String genarateId() throws SQLException, ClassNotFoundException {
        // Connection connection = DBConnection.getDbConnection().getConnection();
        // ResultSet rst = connection.createStatement().executeQuery("SELECT id FROM Customer ORDER BY id DESC LIMIT 1;");

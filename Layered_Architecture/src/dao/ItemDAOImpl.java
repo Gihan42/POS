@@ -43,6 +43,24 @@ public class ItemDAOImpl implements CrudDao<ItemDTO,String> {
       */
        return SQLUtil.executeUpdate("DELETE FROM Item WHERE code=?",code);
     }
+
+    @Override
+    public ItemDTO search(String id) throws SQLException, ClassNotFoundException {
+       /* Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
+        pstm.setString(1, newItemCode + "");
+        ResultSet rst = pstm.executeQuery();
+        rst.next();*/
+        ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Item WHERE code=?", id);
+        if(rst.next()){
+          return  new ItemDTO(rst.getString(1),
+                    rst.getString(2),
+                    rst.getBigDecimal(3),
+                    rst.getInt(4));
+        }
+        return null;
+    }
+
     public boolean update(ItemDTO dto) throws SQLException, ClassNotFoundException {
       //  Connection connection = DBConnection.getDbConnection().getConnection();
       //  PreparedStatement pstm = connection.prepareStatement("");
