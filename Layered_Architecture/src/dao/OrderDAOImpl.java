@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class OrderDAOImpl implements CrudDao<OrderDTO,String>{
     @Override
     public boolean save(OrderDTO dto) throws SQLException, ClassNotFoundException {
-        return  false;
-
+    return SQLUtil.executeUpdate("INSERT INTO `Orders` (oid, date, customerID) VALUES (?,?,?)",
+        dto.getOrderId(),dto.getOrderDate(),dto.getCustomerId());
     }
 
     @Override
@@ -21,7 +21,7 @@ public class OrderDAOImpl implements CrudDao<OrderDTO,String>{
 
     @Override
     public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return  SQLUtil.executeQuery("SELECT oid FROM `Orders` WHERE oid=?",id).next();
     }
 
     @Override
