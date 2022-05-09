@@ -16,13 +16,13 @@ public class OrderDTO  {
     private String customerName;
     private BigDecimal orderTotal;
 
+    public OrderDTO() {
+    }
+
     public OrderDTO(String orderId, LocalDate orderDate, String customerId) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.customerId = customerId;
-    }
-
-    public OrderDTO() {
     }
 
     public OrderDTO(String orderId, LocalDate orderDate, String customerId, String customerName, BigDecimal orderTotal) {

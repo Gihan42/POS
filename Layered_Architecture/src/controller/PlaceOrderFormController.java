@@ -57,10 +57,10 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
-    CrudDao<ItemDTO,String> itemDAO = new ItemDAOImpl();
-    CrudDao<CustomerDTO,String> customerDAO=new CustomerDAOImpl();
-    CrudDao<OrderDTO,String> orderDAO=new OrderDAOImpl();
-    CrudDao<OrderDetailDTO,String> orderDetailDAO=new OderDetailsDAOImpl();
+    private final CrudDao<ItemDTO,String> itemDAO = new ItemDAOImpl();
+    private final CrudDao<CustomerDTO,String> customerDAO=new CustomerDAOImpl();
+    private final CrudDao<OrderDTO,String> orderDAO=new OrderDAOImpl();
+    private final CrudDao<OrderDetailDTO,String> orderDetailsDAO=new OderDetailsDAOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
 
@@ -233,9 +233,9 @@ public class PlaceOrderFormController {
 
     private void loadAllCustomerIds() {
         try {
-            ArrayList<CustomerDTO> allcustomer=customerDAO.getAll();
-            for (CustomerDTO customer:allcustomer) {
-                cmbItemCode.getItems().add(customer.getId());
+            ArrayList<CustomerDTO> all = customerDAO.getAll();
+            for (CustomerDTO customerDTO : all) {
+                cmbCustomerId.getItems().add(customerDTO.getId());
             }
 
         } catch (SQLException e) {
@@ -333,8 +333,7 @@ public class PlaceOrderFormController {
 
     public void btnPlaceOrder_OnAction(ActionEvent actionEvent) {
         boolean b = saveOrder(orderId, LocalDate.now(), cmbCustomerId.getValue(),
-                tblOrderDetails.getItems().stream().map(tm -> new OrderDetailDTO(tm.getCode(), tm.getQty(), tm.getUnitPrice())).collect(Collectors.toList()));
-
+                tblOrderDetails.getItems().stream().map(tm -> new OrderDetailDTO(orderId, tm.getCode(), tm.getQty(), tm.getUnitPrice())).collect(Collectors.toList()));
         if (b) {
             new Alert(Alert.AlertType.INFORMATION, "Order has been placed successfully").show();
         } else {
@@ -351,6 +350,8 @@ public class PlaceOrderFormController {
     }
 
     public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) {
+        /*Transaction*/
+
         try {
             Connection connection = DBConnection.getDbConnection().getConnection();
             /*if order id already exist*/
@@ -368,7 +369,7 @@ public class PlaceOrderFormController {
             }
 
             for (OrderDetailDTO detail : orderDetails) {
-                boolean save1 = orderDetailDAO.save(detail);
+                boolean save1 = orderDetailsDAO.save(detail);
                 if (!save1) {
                     connection.rollback();
                     connection.setAutoCommit(true);
@@ -398,7 +399,7 @@ public class PlaceOrderFormController {
             e.printStackTrace();
         }
         return false;
-        }
+    }
 
 
 

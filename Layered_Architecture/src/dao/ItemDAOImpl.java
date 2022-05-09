@@ -13,16 +13,12 @@ public class ItemDAOImpl implements CrudDao<ItemDTO,String> {
    public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
      //   Connection connection = DBConnection.getDbConnection().getConnection();
     //    Statement stm = connection.createStatement();
-        ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Item");
-        ArrayList<ItemDTO> allItems = new ArrayList<>();
-        while (rst.next()) {
-            String code = rst.getString(1);
-            String description = rst.getString(2);
-            BigDecimal price = rst.getBigDecimal(3);
-            int qtyOnHand = rst.getInt(4);
-            allItems.add(new ItemDTO(code, description, price, qtyOnHand));
-        }
-        return allItems;
+       ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Item");
+       ArrayList<ItemDTO> allItems = new ArrayList<>();
+       while (rst.next()) {
+           allItems.add(new ItemDTO(rst.getString(1), rst.getString(2), rst.getBigDecimal(4), rst.getInt(3)));
+       }
+       return allItems;
     }
     public boolean save(ItemDTO dto) throws SQLException, ClassNotFoundException {
       //  Connection connection = DBConnection.getDbConnection().getConnection();
@@ -32,8 +28,7 @@ public class ItemDAOImpl implements CrudDao<ItemDTO,String> {
         pstm.setBigDecimal(3, dto.getUnitPrice());
         pstm.setInt(4, dto.getQtyOnHand());
         return pstm.executeUpdate()>0;*/
-           return SQLUtil.executeUpdate("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)",
-                   dto.getCode(), dto.getDescription(),dto.getUnitPrice(),dto.getQtyOnHand());
+        return SQLUtil.executeUpdate("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)", dto.getCode(), dto.getDescription(), dto.getUnitPrice(), dto.getQtyOnHand());
      }
     public boolean delete(String code) throws SQLException, ClassNotFoundException {
      //   Connection connection = DBConnection.getDbConnection().getConnection();
@@ -41,22 +36,19 @@ public class ItemDAOImpl implements CrudDao<ItemDTO,String> {
      /*   pstm.setString(1, code);
         return  pstm.executeUpdate()>0;
       */
-       return SQLUtil.executeUpdate("DELETE FROM Item WHERE code=?",code);
+        return SQLUtil.executeUpdate("DELETE FROM Item WHERE code=?", code);
     }
 
     @Override
-    public ItemDTO search(String id) throws SQLException, ClassNotFoundException {
+    public ItemDTO search(String code) throws SQLException, ClassNotFoundException {
        /* Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
         pstm.setString(1, newItemCode + "");
         ResultSet rst = pstm.executeQuery();
         rst.next();*/
-        ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Item WHERE code=?", id);
-        if(rst.next()){
-          return  new ItemDTO(rst.getString(1),
-                    rst.getString(2),
-                    rst.getBigDecimal(3),
-                    rst.getInt(4));
+        ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Item WHERE code=?", code);
+        if (rst.next()) {
+            return new ItemDTO(rst.getString(1), rst.getString(2), rst.getBigDecimal(4), rst.getInt(3));
         }
         return null;
     }
@@ -69,7 +61,7 @@ public class ItemDAOImpl implements CrudDao<ItemDTO,String> {
         pstm.setInt(3, dto.getQtyOnHand());
         pstm.setString(4, dto.getCode());
        return pstm.executeUpdate() >0;*/
-      return  SQLUtil.executeUpdate("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?",
+        return  SQLUtil.executeUpdate("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?",
                 dto.getDescription(),dto.getUnitPrice(),dto.getQtyOnHand(),dto.getCode());
     }
     public boolean exist(String code) throws SQLException, ClassNotFoundException {
