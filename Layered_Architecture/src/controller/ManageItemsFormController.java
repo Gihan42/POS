@@ -2,9 +2,8 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import dao.CrudDao;
-import dao.ItemDAOImpl;
-import dao.ItemDao;
+import dao.custom.impl.ItemDAOImpl;
+import dao.custom.ItemDao;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,9 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.CustomerDTO;
 import model.ItemDTO;
-import model.OrderDetailDTO;
 import view.tdm.ItemTM;
 
 import java.io.IOException;

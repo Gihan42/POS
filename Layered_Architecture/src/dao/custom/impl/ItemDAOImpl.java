@@ -1,11 +1,10 @@
-package dao;
+package dao.custom.impl;
 
-import db.DBConnection;
-import model.CustomerDTO;
+import dao.SQLUtil;
+import dao.custom.ItemDao;
 import model.ItemDTO;
 import view.tdm.ItemTM;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
