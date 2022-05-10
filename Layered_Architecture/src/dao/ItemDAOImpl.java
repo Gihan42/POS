@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ItemDAOImpl implements CrudDao<ItemDTO,String> {
+public class ItemDAOImpl implements ItemDao {
    public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
      //   Connection connection = DBConnection.getDbConnection().getConnection();
     //    Statement stm = connection.createStatement();
@@ -81,5 +81,10 @@ public class ItemDAOImpl implements CrudDao<ItemDTO,String> {
         } else {
             return "I00-001";
         }
+    }
+
+    @Override
+    public ArrayList<ItemTM> genarateSalary(double salary) throws SQLException, ClassNotFoundException {
+        return null;
     }
 }

@@ -57,10 +57,10 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
-    private final CrudDao<CustomerDTO, String> customerDAO = new CustomerDAOImpl();
-    private final CrudDao<ItemDTO, String> itemDAO = new ItemDAOImpl();
-    private final CrudDao<OrderDTO, String> orderDAO = new OrderDAOImpl();
-    private final CrudDao<OrderDetailDTO, String> orderDetailsDAO = new OderDetailsDAOImpl();
+    private final CustomerDao customerDAO = new CustomerDAOImpl();
+    private final ItemDao itemDAO = new ItemDAOImpl();
+    private final OrderDao orderDAO = new OrderDAOImpl();
+    private final OrderDetailDao orderDetailsDAO = new OderDetailsDAOImpl();
 
     private String OrderId;
 

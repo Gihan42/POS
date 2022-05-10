@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import dao.CrudDao;
 import dao.ItemDAOImpl;
+import dao.ItemDao;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +45,7 @@ public class ManageItemsFormController {
     public JFXButton btnAddNewItem;
 
     //property depency injection
-    CrudDao<ItemDTO,String> itemDAO=new ItemDAOImpl();
+   ItemDao itemDAO=new ItemDAOImpl();
 
     public void initialize() {
         tblItems.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
