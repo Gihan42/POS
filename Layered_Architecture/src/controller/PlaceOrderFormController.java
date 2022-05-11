@@ -3,14 +3,8 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import dao.custom.CustomerDao;
-import dao.custom.ItemDao;
-import dao.custom.OrderDao;
-import dao.custom.OrderDetailDao;
-import dao.custom.impl.CustomerDAOImpl;
-import dao.custom.impl.ItemDAOImpl;
-import dao.custom.impl.OderDetailsDAOImpl;
-import dao.custom.impl.OrderDAOImpl;
+import dao.custom.*;
+import dao.custom.impl.*;
 import db.DBConnection;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -63,10 +57,12 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
-    private final CustomerDao customerDAO = new CustomerDAOImpl();
+  /*  private final CustomerDao customerDAO = new CustomerDAOImpl();
     private final ItemDao itemDAO = new ItemDAOImpl();
     private final OrderDao orderDAO = new OrderDAOImpl();
     private final OrderDetailDao orderDetailsDAO = new OderDetailsDAOImpl();
+    private final QueryDao queryDao=new QueryDaoImpl();*/
+
 
     private String OrderId;
 
@@ -330,10 +326,10 @@ public class PlaceOrderFormController {
     public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) {
         /*Transaction*/
 
-        try {
+       /* try {
             Connection connection = DBConnection.getDbConnection().getConnection();
             /*if order id already exist*/
-            if (orderDAO.exist(orderId)) {
+          /*  if (orderDAO.exist(orderId)) {
 
             }
 
@@ -376,7 +372,7 @@ public class PlaceOrderFormController {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return false;
+        return false;*/
     }
 
 
