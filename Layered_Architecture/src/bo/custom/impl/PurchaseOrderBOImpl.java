@@ -15,20 +15,19 @@ import java.util.List;
 
 
 public class PurchaseOrderBOImpl implements PurchaseOrderBo {
-  //  private final CustomerDao customerDAO = new CustomerDAOImpl();
+   /*private final CustomerDao customerDAO = new CustomerDAOImpl();
+   private final ItemDao itemDAO = new ItemDAOImpl();
+   private final OrderDao orderDAO = new OrderDAOImpl();
+   private final QueryDao queryDao=new QueryDaoImpl();
+   private final OrderDetailDao orderDetailsDAO = new OderDetailsDAOImpl();*/
+
+    OrderDetailDao orderDetailsDAO=(OrderDetailDao) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDERDETAILS);
+    QueryDao queryDao=(QueryDao) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.QUERYDAO);
+    OrderDao orderDAO= (OrderDao) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER);
+    ItemDao itemDAO=(ItemDao) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
     CustomerDao customerDAO = (CustomerDao) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
 
-    //  private final ItemDao itemDAO = new ItemDAOImpl();
-  ItemDao itemDAO=(ItemDao) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
 
-   // private final OrderDao orderDAO = new OrderDAOImpl();
-   OrderDao orderDAO= (OrderDao) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER);
-
-   // private final OrderDetailDao orderDetailsDAO = new OderDetailsDAOImpl();
-   OrderDetailDao orderDetailsDAO=(OrderDetailDao) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDERDETAILS);
-
-  //  private final QueryDao queryDao=new QueryDaoImpl();
-  QueryDao queryDao=(QueryDao) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.QUERYDAO);
 
     public boolean purchaseOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException {
         /*Transaction*/

@@ -4,6 +4,7 @@ import bo.custom.CustomerBo;
 import bo.custom.impl.CustomerBoImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import dao.DAOFactory;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,6 +45,7 @@ public class ManageCustomersFormController {
     //property dipendancy injection
    // final CustomerDao customerDao=new CustomerDAOImpl();
     CustomerBo customerBo=new CustomerBoImpl();
+  //  CustomerBo customerBo=(CustomerBo) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
         tblCustomers.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
