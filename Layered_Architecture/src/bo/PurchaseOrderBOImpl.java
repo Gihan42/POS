@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PurchaseOrderBOImpl {
+public class PurchaseOrderBOImpl implements PurchaseOrderBo{
     private final CustomerDao customerDAO = new CustomerDAOImpl();
     private final ItemDao itemDAO = new ItemDAOImpl();
     private final OrderDao orderDAO = new OrderDAOImpl();
@@ -45,7 +45,7 @@ public class PurchaseOrderBOImpl {
 
             //Search & Update Item
 //                ItemDTO item = findItem(detail.getItemCode());
-            ItemDTO item = null;
+            ItemDTO item = searchItem(detail.getItemCode());
             item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
 
             //update item
