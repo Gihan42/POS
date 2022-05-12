@@ -1,5 +1,6 @@
 package controller;
 
+import bo.CustomerBo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import dao.custom.impl.CustomerDAOImpl;
@@ -42,7 +43,8 @@ public class ManageCustomersFormController {
     public JFXButton btnAddNewCustomer;
 
     //property dipendancy injection
-    final CustomerDao customerDao=new CustomerDAOImpl();
+   // final CustomerDao customerDao=new CustomerDAOImpl();
+    CustomerBo customerBo=new CustomerBo();
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
         tblCustomers.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -80,7 +82,7 @@ public class ManageCustomersFormController {
 
            // Loos Coupling
            // CustomerDao customerDao=new CustomerDAOImpl();
-            ArrayList<CustomerDTO> allcustomer=customerDao.getAll();
+            ArrayList<CustomerDTO> allcustomer=customerBo.getAllCustomer();
             for (CustomerDTO customer:allcustomer) {
                 tblCustomers.getItems().add(new CustomerTM(customer.getId(),customer.getName(),customer.getAddress()));
             }
@@ -157,7 +159,7 @@ public class ManageCustomersFormController {
 
                 //loos coupling
               //  CustomerDao customerDao=new CustomerDAOImpl();
-                customerDao.save(new CustomerDTO(id, name, address) {
+                customerBo.saveCustomer(new CustomerDTO(id, name, address) {
                 });
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
@@ -180,7 +182,7 @@ public class ManageCustomersFormController {
 
                 //Loos Coupling
              //  CustomerDao customerDao=new CustomerDAOImpl();
-                customerDao.update( new CustomerDTO(id,name,address));
+                customerBo.updateCustomer( new CustomerDTO(id,name,address));
                 new Alert(Alert.AlertType.INFORMATION,"Updated").show();
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Failed to update the customer " + id + e.getMessage()).show();
@@ -205,7 +207,7 @@ public class ManageCustomersFormController {
 
       //  loos coupling
        // CustomerDao customerDAO = new CustomerDAOImpl();
-          return   customerDao.exist(id);
+          return   customerBo.existCustomer(id);
     }
 
 
@@ -221,7 +223,7 @@ public class ManageCustomersFormController {
            // customerDAO.deleteCustomer(id);
 
             //loos coupling
-            customerDao.delete(id);
+            customerBo.deleteCustomer(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
             tblCustomers.getSelectionModel().clearSelection();
@@ -242,7 +244,7 @@ public class ManageCustomersFormController {
 
             //loos coupling
             //CustomerDao customerDao=new CustomerDAOImpl();
-            return customerDao.genarateId();
+            return customerBo.genarateNewCustomerId();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
         } catch (ClassNotFoundException e) {

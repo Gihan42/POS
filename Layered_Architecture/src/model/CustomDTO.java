@@ -13,15 +13,25 @@ public class CustomDTO {
     private BigDecimal unitPrice;
     private int qtyOnHand;
 
+    private String orderId;
+    private LocalDate orderDate;
+    private String customerId;
+
     private String oid;
     private String itemCode;
     private int qty;
 
-    private String orderId;
-    private LocalDate orderDate;
-    private String customerId;
-    private String customerName;
-    private BigDecimal orderTotal;
+    public CustomDTO() {
+    }
+
+    public CustomDTO(String oid, LocalDate orderDate, String customerId, String itemCode, int qty, BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
+        this.orderDate = orderDate;
+        this.customerId = customerId;
+        this.oid = oid;
+        this.itemCode = itemCode;
+        this.qty = qty;
+    }
 
     public String getId() {
         return id;
@@ -79,30 +89,6 @@ public class CustomDTO {
         this.qtyOnHand = qtyOnHand;
     }
 
-    public String getOid() {
-        return oid;
-    }
-
-    public void setOid(String oid) {
-        this.oid = oid;
-    }
-
-    public String getItemCode() {
-        return itemCode;
-    }
-
-    public void setItemCode(String itemCode) {
-        this.itemCode = itemCode;
-    }
-
-    public int getQty() {
-        return qty;
-    }
-
-    public void setQty(int qty) {
-        this.qty = qty;
-    }
-
     public String getOrderId() {
         return orderId;
     }
@@ -127,26 +113,31 @@ public class CustomDTO {
         this.customerId = customerId;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getOid() {
+        return oid;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setOid(String oid) {
+        this.oid = oid;
     }
 
-    public BigDecimal getOrderTotal() {
-        return orderTotal;
+    public String getItemCode() {
+        return itemCode;
     }
 
-    public void setOrderTotal(BigDecimal orderTotal) {
-        this.orderTotal = orderTotal;
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
     }
 
-    public CustomDTO(String id, String name, String address, String code, String description,
-                     BigDecimal unitPrice, int qtyOnHand, String oid, String itemCode, int qty,
-                     String orderId, LocalDate orderDate, String customerId, String customerName,
-                     BigDecimal orderTotal) {
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
+
+    public CustomDTO(String id, String name, String address, String code, String description, BigDecimal unitPrice, int qtyOnHand, String orderId, LocalDate orderDate, String customerId, String oid, String itemCode, int qty) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -154,17 +145,12 @@ public class CustomDTO {
         this.description = description;
         this.unitPrice = unitPrice;
         this.qtyOnHand = qtyOnHand;
-        this.oid = oid;
-        this.itemCode = itemCode;
-        this.qty = qty;
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.customerId = customerId;
-        this.customerName = customerName;
-        this.orderTotal = orderTotal;
-    }
-
-    public CustomDTO() {
+        this.oid = oid;
+        this.itemCode = itemCode;
+        this.qty = qty;
     }
 
     @Override
@@ -177,24 +163,13 @@ public class CustomDTO {
                 ", description='" + description + '\'' +
                 ", unitPrice=" + unitPrice +
                 ", qtyOnHand=" + qtyOnHand +
-                ", oid='" + oid + '\'' +
-                ", itemCode='" + itemCode + '\'' +
-                ", qty=" + qty +
                 ", orderId='" + orderId + '\'' +
                 ", orderDate=" + orderDate +
                 ", customerId='" + customerId + '\'' +
-                ", customerName='" + customerName + '\'' +
-                ", orderTotal=" + orderTotal +
+                ", oid='" + oid + '\'' +
+                ", itemCode='" + itemCode + '\'' +
+                ", qty=" + qty +
                 '}';
     }
-    //awshaya dewal gnn witrk memt pluwan
-    public CustomDTO(BigDecimal unitPrice, LocalDate orderDate,
-                     String customerId, String oid, String itemCode, int qty) {
-        this.unitPrice = unitPrice;
-        this.orderDate = orderDate;
-        this.customerId = customerId;
-        this.oid = oid;
-        this.itemCode = itemCode;
-        this.qty = qty;
-    }
+
 }
