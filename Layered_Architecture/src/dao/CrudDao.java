@@ -5,7 +5,7 @@ import model.CustomerDTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface CrudDao <T,ID>{
+public interface CrudDao <T,ID> extends SuperDao{
      boolean save(T dto) throws SQLException, ClassNotFoundException;
      boolean update(T dto) throws SQLException, ClassNotFoundException;
      boolean exist(ID id) throws SQLException, ClassNotFoundException;

@@ -1,5 +1,6 @@
-package bo;
+package bo.custom.impl;
 
+import bo.custom.CustomerBo;
 import dao.custom.CustomerDao;
 import dao.custom.impl.CustomerDAOImpl;
 import model.CustomerDTO;
