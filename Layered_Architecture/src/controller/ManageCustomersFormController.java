@@ -44,7 +44,7 @@ public class ManageCustomersFormController {
 
     //property dipendancy injection
    // final CustomerDao customerDao=new CustomerDAOImpl();
-    CustomerBo customerBo=new CustomerBoImpl();
+     CustomerBo customerBo=new CustomerBoImpl();
   //  CustomerBo customerBo=(CustomerBo) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
